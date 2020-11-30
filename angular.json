@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ui-task"
+    }
+  },
+  "defaultProject": "ui-task",
+  "cli": {
+    "analytics": false
+  }
 }
