@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Orders } from 'src/app/interfaces/orders';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { HttpRequestService } from 'src/app/services/http-request/http-request.service';
 import { environment } from 'src/environments/environment';
@@ -12,7 +13,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-  orders: any;
+  orders: Orders;
   constructor(
     private router: Router, 
     private httpRequestService:HttpRequestService,

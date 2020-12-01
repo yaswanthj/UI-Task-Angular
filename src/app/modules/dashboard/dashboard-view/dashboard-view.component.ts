@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./dashboard-view.component.css']
 })
 export class DashboardViewComponent implements OnInit {
-  userName = sessionStorage.getItem('userName');
+  userName = localStorage.getItem('userName');
 
   pageElements = [{
     name: 'Heirarchy',
@@ -36,10 +36,6 @@ export class DashboardViewComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {}
-
-  goTo(url) {
-    this.router.navigate([url]);
-  }
 
   logout(){
     this.authService.logout((status) => {

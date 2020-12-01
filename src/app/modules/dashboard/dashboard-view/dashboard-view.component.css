@@ -45,10 +45,13 @@
   border-radius: 16px;
   cursor: pointer;
 }
+.each-product:focus{
+  outline: none;
+}
 
-/* .each-product:first-child{
-    margin-left: 2%;
-} */
+.each-product:hover{
+  box-shadow: 2px 1px 6px #888888
+}
 
 
 @media (max-width: 580px) {

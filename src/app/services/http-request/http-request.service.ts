@@ -1,9 +1,19 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders
+} from '@angular/common/http';
 import {
   Injectable
 } from '@angular/core';
-import { throwError } from 'rxjs';
-import { catchError, map, retry } from 'rxjs/operators';
+import {
+  throwError
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  retry
+} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -50,27 +60,6 @@ export class HttpRequestService {
     return throwError(error);
   }
 
-  getCookie(cname) {
-    const name = cname + '=';
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) === 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return '';
-  }
 
-  deleteCookie(name) {
-    document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  }
-
-  
 
 }

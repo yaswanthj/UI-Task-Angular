@@ -22,12 +22,8 @@
 }
 
 @media (max-width: 500px) {
-  .myForm {
-    min-width: 50%;
-  }
 
   .form-container{
     min-width: 80%;
-
   }
 }

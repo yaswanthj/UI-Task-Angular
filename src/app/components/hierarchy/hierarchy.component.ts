@@ -6,6 +6,7 @@ import {
 import {
   Router
 } from '@angular/router';
+import { Hierarchy } from 'src/app/interfaces/hierarchy';
 import { environment } from 'src/environments/environment';
 import {
   AuthService
@@ -14,21 +15,6 @@ import {
   HttpRequestService
 } from '../../services/http-request/http-request.service';
 
-export interface networkChilds {
-  children: networkChilds[],
-    nodeId: number,
-    nodeName: string
-}
-
-export interface networkFirstLevel {
-  callerId: string,
-    nodeStandardMetadata: networkChilds
-}
-
-export interface network {
-  status: number,
-    entity: any
-}
 @Component({
   selector: 'app-hierarchy',
   templateUrl: './hierarchy.component.html',
@@ -36,8 +22,8 @@ export interface network {
 })
 export class HierarchyComponent implements OnInit {
 
-  data: network;
-  userName = sessionStorage.getItem('userName');
+  hierarchy: Hierarchy;
+  userName = localStorage.getItem('userName');
 
 
   constructor(
@@ -59,7 +45,7 @@ export class HierarchyComponent implements OnInit {
     let api = `${environment.server}/node-hierarchy?token=${tokenID}`;
     this.httpRequestService.getRequest(api).subscribe(
       (success: any) => {
-        this.data = success;
+        this.hierarchy = success;
       },
       (error) => {
         console.error(error);

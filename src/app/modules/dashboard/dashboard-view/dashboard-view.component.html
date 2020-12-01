@@ -8,9 +8,9 @@
 <div>
   <div>
     <div class="all-sections row justify-content-start m-0">
-      <div *ngFor="let element of pageElements" class="col-12 col-md-3 col-sm-3 col-xs-12 each-product">
-        <a [routerLink]="[element.url]" routerLinkActive="router-link-active">
-          {{element.name}}</a>
+      <div [routerLink]="[element.url]" routerLinkActive="router-link-active" *ngFor="let element of pageElements"
+        class="col-12 col-md-3 col-sm-3 col-xs-12 each-product">
+        {{element.name}}
       </div>
     </div>
   </div>

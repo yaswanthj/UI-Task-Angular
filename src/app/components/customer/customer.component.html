@@ -19,6 +19,7 @@
         <div class="offset-sm-1 col-sm-8">
           <input class="form-control" type="number" formControlName="customerAge">
         </div>
+        <div class="offset-sm-4 col-sm-8 error" *ngIf="customerForm.controls.customerAge.errors?.old">Age must be below 100</div>
       </div>
       <div class="form-group row">
         <label class="col-sm-3 col-form-label">Address</label>

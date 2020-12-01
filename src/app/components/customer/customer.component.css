@@ -32,13 +32,12 @@
 .button-section {
   margin-top: 50px;
 }
-
+.error{
+  color: #f00;
+  margin-top: 10px;
+}
 
 @media (max-width: 500px) {
-  .myForm {
-    min-width: 90%;
-  }
-  
   .header {
     height: 90px;
   }

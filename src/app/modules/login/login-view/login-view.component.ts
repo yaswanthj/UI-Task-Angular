@@ -14,10 +14,6 @@ import {
 import {
   AuthService
 } from 'src/app/services/auth/auth.service';
-import {
-  HttpRequestService
-} from 'src/app/services/http-request/http-request.service';
-import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -27,7 +23,6 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginViewComponent implements OnInit {
   loginForm: FormGroup;
-  submitted = false;
   invalidCredentials = false;
 
   constructor(
@@ -55,15 +50,11 @@ export class LoginViewComponent implements OnInit {
   }
 
   submit() {
-    this.submitted = true;
-
-    // console.log(this.loginForm);
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     } else {
-      let api = `${environment.server}/login?username=${this.loginForm.value.username}&password=${this.loginForm.value.password}`;
-      this.authService.login(api, (status) => {
+      this.authService.login(this.loginForm.value, (status) => {
         if (status) {
           this.router.navigate(['/dashboard']);
         } else {
@@ -72,13 +63,5 @@ export class LoginViewComponent implements OnInit {
       });
     }
   }
-  
-  storeToken(data) {
-    sessionStorage.setItem('firstName', data.firstName);
-    sessionStorage.setItem('lastName', data.lastName);
-    sessionStorage.setItem('userName', data.userName);
-    document.cookie = 'tokenID =' + data.key + ';path=/';
-  }
-
 
 }

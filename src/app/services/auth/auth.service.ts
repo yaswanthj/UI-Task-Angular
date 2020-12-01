@@ -1,9 +1,6 @@
 import {
   Injectable
 } from '@angular/core';
-import {
-  retry
-} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import {
   HttpRequestService
@@ -17,7 +14,8 @@ export class AuthService {
   constructor(private httpRequestService: HttpRequestService) {}
 
 
-  login(api, callback) {
+  login(payloadData, callback) {
+    let api = `${environment.server}/login?username=${payloadData.username}&password=${payloadData.password}`;
     this.httpRequestService.getRequest(api).subscribe(
       (success: any) => {
         this.storeToken(success);
@@ -30,9 +28,9 @@ export class AuthService {
   }
 
   storeToken(data) {
-    sessionStorage.setItem('firstName', data.firstName);
-    sessionStorage.setItem('lastName', data.lastName);
-    sessionStorage.setItem('userName', data.userName);
+    localStorage.setItem('firstName', data.firstName);
+    localStorage.setItem('lastName', data.lastName);
+    localStorage.setItem('userName', data.userName);
     document.cookie = 'tokenID =' + data.key + ';path=/';
   }
 
@@ -40,22 +38,16 @@ export class AuthService {
     return (document.cookie.indexOf('tokenID=') !== -1);
   }
 
-  deleteCookie(name) {
-    document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  }
-
   logout(callback) {
     let tokenID = this.getCookie('tokenID');
     let api = `${environment.server}/logout?token=${tokenID}`;
     return this.httpRequestService.getRequest(api).subscribe(
       (success: any) => {
-        // this.route.navigate(['/dashboard']);
         this.deleteCookie('tokenID');
-        // return true;
+        this.removeSession();
         callback(true);
       },
       (error) => {
-        console.error(error);
         callback(false);
       }
     );
@@ -64,18 +56,27 @@ export class AuthService {
   getCookie(cname) {
     const name = cname + '=';
     const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === ' ') {
-        c = c.substring(1);
+    const cookieArray = decodedCookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+      let eachRecord = cookieArray[i];
+      while (eachRecord.charAt(0) === ' ') {
+        eachRecord = eachRecord.substring(1);
       }
-      if (c.indexOf(name) === 0) {
-        return c.substring(name.length, c.length);
+      if (eachRecord.indexOf(name) === 0) {
+        return eachRecord.substring(name.length, eachRecord.length);
       }
     }
     return '';
   }
 
+
+  deleteCookie(name) {
+    document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 2020 00:00:01 GMT;';
+  }
+
+  removeSession() {
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('userName');
+  }
 }
