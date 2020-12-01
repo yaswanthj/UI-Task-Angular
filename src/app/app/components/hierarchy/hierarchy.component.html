@@ -11,9 +11,9 @@
 
 
 <div class="container">
-   <p class="m-0">{{data.entity.nodeStandardMetadata.nodeName}}</p>
+   <p class="m-0" *ngIf="data.entity">{{data.entity.nodeStandardMetadata.nodeName}}</p>
 	<ul>
-		<ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: list }"></ng-container>
+		<ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: data.entity.nodeStandardMetadata.children }"></ng-container>
 	</ul>
 
 	<ng-template #recursiveListTmpl let-list="list">

@@ -16,17 +16,15 @@ export class AuthService {
   constructor(private httpRequestService: HttpRequestService) {}
 
 
-  login(api) {
+  login(api, callback) {
     return this.httpRequestService.getRequest(api).subscribe(
       (success: any) => {
-        console.log(success);
-        // this.route.navigate(['/dashboard']);
         this.storeToken(success);
-        return true;
+        callback(true);
       },
       (error) => {
         console.log(error);
-        return true;
+        callback(false);
       }
     );
   }
@@ -50,6 +48,22 @@ export class AuthService {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 
+  logout(callback) {
+    let tokenID = this.getCookie('tokenID');
+    let api = `https://test.greenkoncepts.com/gktest/logout?token=${tokenID}`;
+    return this.httpRequestService.getRequest(api).subscribe(
+      (success: any) => {
+        // this.route.navigate(['/dashboard']);
+        this.deleteCookie('tokenID');
+        // return true;
+        callback(true);
+      },
+      (error) => {
+        console.log(error);
+        callback(false);
+      }
+    );
+  }
   
   getCookie(cname) {
     const name = cname + '=';

@@ -3,6 +3,7 @@ import {
   OnInit
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard-view',
@@ -10,12 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard-view.component.css']
 })
 export class DashboardViewComponent implements OnInit {
-  user = {
-    firstName: "GK",
-    lastName: "UI Test",
-    userName: "gkuitest",
-    key: 'sdsd'
-  }
+  userName = sessionStorage.getItem('userName');
 
   pageElements = [{
     name: 'Heirarchy',
@@ -37,7 +33,7 @@ export class DashboardViewComponent implements OnInit {
     url: './email'
   }]
   
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {}
 
@@ -46,7 +42,11 @@ export class DashboardViewComponent implements OnInit {
   }
 
   logout(){
-    console.log('logout');
+    this.authService.logout((status) => {
+      if(status){
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
 }

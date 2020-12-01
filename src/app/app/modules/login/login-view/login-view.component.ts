@@ -30,8 +30,8 @@ export class LoginViewComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private httpRequestService: HttpRequestService,
-    private route: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -62,26 +62,20 @@ export class LoginViewComponent implements OnInit {
     } else {
       let api = `https://test.greenkoncepts.com/gktest/login?username=${this.loginForm.value.username}&password=${this.loginForm.value.password}`;
       // console.log(api);
-      this.httpRequestService.getRequest(api).subscribe(
-        (success: any) => {
-          this.storeToken(success);
-          this.route.navigate(['/dashboard']);
-        },
-        (error) => {
-          console.log(error);
+      this.authService.login(api, (status) => {
+        if (status) {
+          this.router.navigate(['/dashboard']);
         }
-      );
+      });
     }
-    
-
-
   }
-    storeToken(data) {
-      sessionStorage.setItem('firstName', data.firstName);
-      sessionStorage.setItem('lastName', data.lastName);
-      sessionStorage.setItem('userName', data.userName);
-      document.cookie = 'tokenID =' + data.key + ';path=/';
-    }
   
+  storeToken(data) {
+    sessionStorage.setItem('firstName', data.firstName);
+    sessionStorage.setItem('lastName', data.lastName);
+    sessionStorage.setItem('userName', data.userName);
+    document.cookie = 'tokenID =' + data.key + ';path=/';
+  }
+
 
 }

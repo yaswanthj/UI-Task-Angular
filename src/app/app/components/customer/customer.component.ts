@@ -34,7 +34,9 @@ export class CustomerComponent implements OnInit {
       ),
       customerAge: new FormControl('',
         [
-          Validators.required
+          Validators.required,
+          Validators.pattern("^[0-9]*$"),
+          Validators.maxLength(3),
           // Validators.pattern("/^[A-Za-z]\w{7,14}$/")
         ]
       ),
