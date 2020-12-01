@@ -8,9 +8,16 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  Router
+} from '@angular/router';
+import {
+  AuthService
+} from 'src/app/app/services/auth/auth.service';
+import {
+  HttpRequestService
+} from 'src/app/app/services/http-request/http-request.service';
 
-import {HttpRequestsService} from '../../../services/http-requests.service'
 
 @Component({
   selector: 'app-login-view',
@@ -23,7 +30,7 @@ export class LoginViewComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private httpRequestsService: HttpRequestsService,
+    private httpRequestService: HttpRequestService,
     private route: Router
   ) {}
 
@@ -53,22 +60,28 @@ export class LoginViewComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     } else {
-      let api = 'http://localhost/open_training/app/events/get-events.php?type=past';
-      console.log(api);
-      // this.httpRequestsService.postRequest(api, this.loginForm.value).subscribe(
-      //   (success: any) => {
-            // window.location.href =  '/';
-            // this.route.navigate(['/dashboard']); // navigate to other page
-            // this.route.navigate(['dashboard'], { relativeTo: this.route });
-            this.route.navigate(['/dashboard']);
-            // this.route.navigate(['/customer', { id: 1 }]);
-
-      //     },
-      //     (error) => {
-      //         console.log(error);
-      //     }
-      // );
+      let api = `https://test.greenkoncepts.com/gktest/login?username=${this.loginForm.value.username}&password=${this.loginForm.value.password}`;
+      // console.log(api);
+      this.httpRequestService.getRequest(api).subscribe(
+        (success: any) => {
+          this.storeToken(success);
+          this.route.navigate(['/dashboard']);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
+    
+
+
   }
+    storeToken(data) {
+      sessionStorage.setItem('firstName', data.firstName);
+      sessionStorage.setItem('lastName', data.lastName);
+      sessionStorage.setItem('userName', data.userName);
+      document.cookie = 'tokenID =' + data.key + ';path=/';
+    }
+  
 
 }

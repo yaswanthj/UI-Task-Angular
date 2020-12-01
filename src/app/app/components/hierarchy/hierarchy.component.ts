@@ -4,6 +4,8 @@ import {
   OnInit
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
+import { HttpRequestService } from '../../services/http-request/http-request.service';
 
 @Component({
   selector: 'app-hierarchy',
@@ -12,56 +14,39 @@ import { Router } from '@angular/router';
 })
 export class HierarchyComponent implements OnInit {
 
-  data = {
-    "status": 200,
-    "entity": {
-      "nodeStandardMetadata": {
-        "nodeId": "1584420547524",
-        "nodeName": "Green Koncepts Pte Ltd",
-        "children": [{
-          "nodeId": "1584420558984",
-          "nodeName": "Level 3",
-          "children": [{
-            "nodeId": "1584420568914",
-            "nodeName": "#03-15",
-            "children": [{
-                "nodeId": "1584420577974",
-                "nodeName": "Energy",
-                children: []
-              },
-              {
-                "nodeId": "1584420590985",
-                "nodeName": "Temperature & Humidity sdsd",
-                "children": [{
-                  "nodeId": "1584420590085",
-                  "nodeName": "Temperature & Humiditysds",
-                  "children": []
-                }, {
-                  "nodeId": "1584420599985",
-                  "nodeName": "Temperature & Humiditysds sds",
-                  "children": []
-                }]
-              }
-            ]
-          }]
-        }]
-      }
-    }
+  data: any;
+  list: any;
+
+
+
+  constructor(
+    private router: Router, 
+    private httpRequestService:HttpRequestService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.getHierarchy();
   }
-
-
-  list = this.data.entity.nodeStandardMetadata.children;
-
-
-
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {}
 
   goBack() {
     this.router.navigate(['/dashboard']);
   }
 
+  getHierarchy() {
+    let tokenID = this.authService.getCookie('tokenID');
+    let api = `https://test.greenkoncepts.com/gktest/node-hierarchy?token=${tokenID}`;
+    console.log(api);
+    this.httpRequestService.getRequest(api).subscribe(
+      (success: any) => {
+          this.data = success;
+          this.list = this.data.entity.nodeStandardMetadata.children;
+        },
+        (error) => {
+            console.log(error);
+        }
+    );
+  }
   
   logout(){
     console.log('logout');
