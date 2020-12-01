@@ -15,55 +15,26 @@ export class HttpRequestService {
     private http: HttpClient
   ) {}
 
-  setHeaders(tokenID: string) {
-    tokenID = tokenID.split('"').join('');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'X-Auth-Token': tokenID
-      })
-    };
-    return httpOptions;
-  }
-
   getRequest(api: string) {
-    const headers = this.setHeaders(this.getCookie('tokenID'));
-    // const headers = this.setHeaders(userEmail);
-    return this.http.get(api, headers).pipe(
+    return this.http.get(api).pipe(
       map(response => {
         return response; // kind of useless
       }),
       catchError((res: HttpErrorResponse) => {
-        if (res.status === 403) {
-          return throwError(res.status);
-        }
-        this.handleError(res);
+        return this.handleError(res);
       }),
-      retry(1), // retry a failed request up to 1 time
     );
   }
 
   postRequest(api: string, data: any) {
-    const headers = this.setHeaders(this.getCookie('tokenID'));
-    // const headers = this.setHeaders(userEmail);
-    return this.http.post(api, data, headers).pipe(
+    return this.http.post(api, data).pipe(
       map(response => {
         return response; // kind of useless
       }),
       catchError((res: HttpErrorResponse) => {
-        if (res.status === 403) {
-          return throwError(res.status);
-        }
-        this.handleError(res);
+        return this.handleError(res);
       }),
-      retry(1), // retry a failed request up to 1 time
     );
-  }
-
-
-  putRequest(api: string, data: any) {
-    const headers = this.setHeaders(this.getCookie('tokenID'));
-    // const headers = this.setHeaders(userEmail);
-    return this.http.put(api, data, headers).pipe();
   }
 
   private handleError(error: HttpErrorResponse) {

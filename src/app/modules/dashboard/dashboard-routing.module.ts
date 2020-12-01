@@ -21,7 +21,7 @@ const routes: Routes = [{
 },
 {
   path: '**',
-  component: DashboardViewComponent
+  component: CustomerComponent
 }];
 
 @NgModule({

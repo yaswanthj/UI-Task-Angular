@@ -24,7 +24,6 @@ export class AuthService {
         callback(true);
       },
       (error) => {
-        console.error(error);
         callback(false);
       }
     );

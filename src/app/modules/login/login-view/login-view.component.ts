@@ -28,6 +28,7 @@ import { environment } from 'src/environments/environment';
 export class LoginViewComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
+  invalidCredentials = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,10 +63,11 @@ export class LoginViewComponent implements OnInit {
       return;
     } else {
       let api = `${environment.server}/login?username=${this.loginForm.value.username}&password=${this.loginForm.value.password}`;
-      // console.log(api);
       this.authService.login(api, (status) => {
         if (status) {
           this.router.navigate(['/dashboard']);
+        } else {
+          this.invalidCredentials = true;
         }
       });
     }

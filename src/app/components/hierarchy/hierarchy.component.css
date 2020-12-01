@@ -49,6 +49,11 @@ li {
   width: 80px;
 }
 
+.node-tree{
+  border: 1px solid;
+  padding: 10px;
+}
+
 
 
 

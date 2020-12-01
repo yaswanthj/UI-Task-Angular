@@ -2,7 +2,7 @@
   <div (click)="goBack()" class="back-button">
     <p>Back</p>
   </div>
-  <p class="col-12 text-center d-inline-block heading m-0">Welcome to Green Koncepts</p>
+  <p class="col-12 text-center d-inline-block heading m-0">Hierarchy</p>
   <div class="float-right d-inline-block user-elements">
     <p class="d-inline-block m-0 username">{{userName}}</p>
     <p class="d-inline-block m-0 logout-text" (click)="logout()">Logout</p>
@@ -11,22 +11,26 @@
 
 
 <div class="container">
-   <p class="m-0" *ngIf="data">{{data.entity.nodeStandardMetadata.nodeName}}</p>
-	<ul>
-		<ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: data.entity.nodeStandardMetadata.children }"></ng-container>
-	</ul>
+  <div class="node-tree">
+    <p class="m-0" *ngIf="data">{{data.entity.nodeStandardMetadata.nodeName}}</p>
+    <ul>
+      <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: data.entity.nodeStandardMetadata.children }">
+      </ng-container>
+    </ul>
 
-	<ng-template #recursiveListTmpl let-list="list">
-		<li *ngFor="let item of list">
-         <span>&#8595;</span>
-			{{item.nodeName}}
-			<ul *ngIf="item.children && item.children.length > 0">
-				<ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.children }">
-				</ng-container>
-			</ul>
-		</li>
-	</ng-template>
+    <ng-template #recursiveListTmpl let-list="list">
+      <li *ngFor="let item of list">
+        <span>&#8595;</span>
+        {{item.nodeName}}
+        <ul *ngIf="item.children && item.children.length > 0">
+          <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.children }">
+          </ng-container>
+        </ul>
+      </li>
+    </ng-template>
 
 
 
-</div>  
+  </div>
+
+</div>

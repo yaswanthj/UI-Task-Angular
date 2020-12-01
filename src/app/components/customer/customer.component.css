@@ -46,4 +46,8 @@
   .back-button{
     top: 51px;
   }
+
+  .button-section button {
+    margin: 5px 0;
+  }
 }
