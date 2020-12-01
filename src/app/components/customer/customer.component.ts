@@ -2,8 +2,9 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
-import { HttpRequestService } from '../../services/http-request/http-request.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { HttpRequestService } from 'src/app/services/http-request/http-request.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-customer',
@@ -36,14 +37,12 @@ export class CustomerComponent implements OnInit {
         [
           Validators.required,
           Validators.pattern("^[0-9]*$"),
-          Validators.maxLength(3),
-          // Validators.pattern("/^[A-Za-z]\w{7,14}$/")
+          Validators.maxLength(3)
         ]
       ),
       customerAddress: new FormControl('',
       [
         Validators.required
-        // Validators.pattern("/^[A-Za-z]\w{7,14}$/")
       ]
     )
     });
@@ -58,15 +57,14 @@ export class CustomerComponent implements OnInit {
       return;
     } else {
       let tokenID = this.authService.getCookie('tokenID');
-      let api = `https://test.greenkoncepts.com/gktest/createCustomer?token=${tokenID}`;
+      let api = `${environment.server}/createCustomer?token=${tokenID}`;
       // console.log(api);
       this.httpRequestsService.postRequest(api, this.customerForm.value).subscribe(
         (success: any) => {
-            console.log(success);
             this.userAdditon =true
           },
           (error) => {
-              console.log(error);
+            console.error(error);
           }
       );
     }

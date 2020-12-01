@@ -18,10 +18,6 @@ const routes: Routes = [{
 },{
   path: 'hierarchy',
   component: HierarchyComponent
-}, {
-  path: '',
-  component: DashboardViewComponent,
-  pathMatch: 'full'
 },
 {
   path: '**',

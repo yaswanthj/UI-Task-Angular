@@ -4,6 +4,7 @@ import {
 import {
   retry
 } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import {
   HttpRequestService
 } from '../http-request/http-request.service';
@@ -17,13 +18,13 @@ export class AuthService {
 
 
   login(api, callback) {
-    return this.httpRequestService.getRequest(api).subscribe(
+    this.httpRequestService.getRequest(api).subscribe(
       (success: any) => {
         this.storeToken(success);
         callback(true);
       },
       (error) => {
-        console.log(error);
+        console.error(error);
         callback(false);
       }
     );
@@ -37,11 +38,7 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    if (document.cookie.indexOf('tokenID=') !== -1) {
-      return true;
-    } else {
-      return false;
-    }
+    return (document.cookie.indexOf('tokenID=') !== -1);
   }
 
   deleteCookie(name) {
@@ -50,7 +47,7 @@ export class AuthService {
 
   logout(callback) {
     let tokenID = this.getCookie('tokenID');
-    let api = `https://test.greenkoncepts.com/gktest/logout?token=${tokenID}`;
+    let api = `${environment.server}/logout?token=${tokenID}`;
     return this.httpRequestService.getRequest(api).subscribe(
       (success: any) => {
         // this.route.navigate(['/dashboard']);
@@ -59,7 +56,7 @@ export class AuthService {
         callback(true);
       },
       (error) => {
-        console.log(error);
+        console.error(error);
         callback(false);
       }
     );

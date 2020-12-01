@@ -13,10 +13,11 @@ import {
 } from '@angular/router';
 import {
   AuthService
-} from 'src/app/app/services/auth/auth.service';
+} from 'src/app/services/auth/auth.service';
 import {
   HttpRequestService
-} from 'src/app/app/services/http-request/http-request.service';
+} from 'src/app/services/http-request/http-request.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -60,7 +61,7 @@ export class LoginViewComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     } else {
-      let api = `https://test.greenkoncepts.com/gktest/login?username=${this.loginForm.value.username}&password=${this.loginForm.value.password}`;
+      let api = `${environment.server}/login?username=${this.loginForm.value.username}&password=${this.loginForm.value.password}`;
       // console.log(api);
       this.authService.login(api, (status) => {
         if (status) {

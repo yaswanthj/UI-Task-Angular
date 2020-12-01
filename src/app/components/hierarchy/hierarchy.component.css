@@ -1,3 +1,19 @@
+ul li {
+  list-style: none;
+}
+
+li {
+  padding: 10px;
+}
+
+.back-button {
+  position: absolute;
+  top: 13px;
+  left:15px;
+  cursor: pointer;
+  z-index: 1;
+}
+
 .header {
   position: relative;
   border: 1px solid;
@@ -33,23 +49,18 @@
   width: 80px;
 }
 
-.each-product{
-    height: 100px;
-    padding: 30px 20px;
-    border:1px solid #000;
-    min-width: 100px;
-    text-align: center;
-    margin: 20px 0 20px 6%;
-    border-radius: 16px;
-    cursor: pointer;
-}
-/* .each-product:first-child{
-    margin-left: 2%;
-} */
+
 
 
 @media (max-width: 500px) {
-    .each-product {
-      margin: 20px 0;
-    }
+  
+  .header {
+    height: 90px;
   }
+  
+  .back-button,
+  .user-elements {
+    top: 51px;
+  }
+
+}

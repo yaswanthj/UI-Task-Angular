@@ -4,14 +4,14 @@
   </div>
   <p class="col-12 text-center d-inline-block heading m-0">Welcome to Green Koncepts</p>
   <div class="float-right d-inline-block user-elements">
-    <p class="d-inline-block m-0 username">as</p>
+    <p class="d-inline-block m-0 username">{{userName}}</p>
     <p class="d-inline-block m-0 logout-text" (click)="logout()">Logout</p>
   </div>
 </div>
 
 
 <div class="container">
-   <p class="m-0" *ngIf="data.entity">{{data.entity.nodeStandardMetadata.nodeName}}</p>
+   <p class="m-0" *ngIf="data">{{data.entity.nodeStandardMetadata.nodeName}}</p>
 	<ul>
 		<ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: data.entity.nodeStandardMetadata.children }"></ng-container>
 	</ul>

@@ -38,4 +38,12 @@
   .myForm {
     min-width: 90%;
   }
+  
+  .header {
+    height: 90px;
+  }
+  
+  .back-button{
+    top: 51px;
+  }
 }

@@ -6,6 +6,7 @@ import {
 import {
   Router
 } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import {
   AuthService
 } from '../../services/auth/auth.service';
@@ -36,6 +37,7 @@ export interface network {
 export class HierarchyComponent implements OnInit {
 
   data: network;
+  userName = sessionStorage.getItem('userName');
 
 
   constructor(
@@ -54,14 +56,13 @@ export class HierarchyComponent implements OnInit {
 
   getHierarchy() {
     let tokenID = this.authService.getCookie('tokenID');
-    let api = `https://test.greenkoncepts.com/gktest/node-hierarchy?token=${tokenID}`;
-    console.log(api);
+    let api = `${environment.server}/node-hierarchy?token=${tokenID}`;
     this.httpRequestService.getRequest(api).subscribe(
       (success: any) => {
         this.data = success;
       },
       (error) => {
-        console.log(error);
+        console.error(error);
       }
     );
   }

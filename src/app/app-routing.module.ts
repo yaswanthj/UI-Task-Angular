@@ -7,15 +7,15 @@ import {
 } from '@angular/router';
 import {
   AuthGuard
-} from './app/guards/auth.guard';
+} from './guards/auth.guard';
 
 
 const routes: Routes = [{
     path: 'login',
-    loadChildren: () => import('./app/modules/login/login.module').then(m => m.LoginModule)
+    loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
   }, {
     path: 'dashboard',
-    loadChildren: () => import('./app/modules/dashboard/dashboard.module').then(m => m.DashboardModule),
+    loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate: [AuthGuard]
   }, {
     path: '',

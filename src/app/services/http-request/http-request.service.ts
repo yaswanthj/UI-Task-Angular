@@ -100,17 +100,6 @@ export class HttpRequestService {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 
-
-  storeDataInSheet(url) {
-    return this.http.get(url)
-      .pipe(
-        map(response => {
-          return response;
-        }),
-        catchError((e: any) => {
-          return throwError(e);
-        }),
-      );
-  }
+  
 
 }
