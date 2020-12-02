@@ -1,8 +1,7 @@
-
 .back-button {
   position: absolute;
   top: 13px;
-  left:15px;
+  left: 15px;
   cursor: pointer;
   z-index: 1;
 }
@@ -14,14 +13,17 @@
   height: 60px;
   margin-bottom: 30px;
 }
+
 .heading {
   font-size: 24px;
   top: 13%;
 }
 
 .form-container {
-  /* min-width: 500px; */
   height: 300px;
+  height: 300px;
+  max-width: 520px;
+  margin: 0 auto;
 }
 
 .form-fields {
@@ -32,7 +34,8 @@
 .button-section {
   margin-top: 50px;
 }
-.error{
+
+.error {
   color: #f00;
   margin-top: 10px;
 }
@@ -41,8 +44,8 @@
   .header {
     height: 90px;
   }
-  
-  .back-button{
+
+  .back-button {
     top: 51px;
   }
 

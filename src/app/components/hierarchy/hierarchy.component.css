@@ -9,7 +9,7 @@ li {
 .back-button {
   position: absolute;
   top: 13px;
-  left:15px;
+  left: 15px;
   cursor: pointer;
   z-index: 1;
 }
@@ -21,48 +21,52 @@ li {
   height: 60px;
   margin-bottom: 30px;
 }
+
 .heading {
   font-size: 24px;
   top: 13%;
 }
-.user-elements{
-    position: absolute;
-    right: 0;
-    top: 15px;
-    right: 15px;
+
+.user-elements {
+  position: absolute;
+  right: 0;
+  top: 15px;
+  right: 15px;
 }
 
 
 .logout-text,
-.username{
+.username {
   text-overflow: ellipsis;
   width: 100px;
-  overflow: hidden;     
+  overflow: hidden;
   white-space: nowrap;
   text-align: right;
 }
 
 
-.logout-text{
+.logout-text {
   cursor: pointer;
   margin-top: 0;
   width: 80px;
 }
 
-.node-tree{
+.node-tree {
   border: 1px solid;
   padding: 10px;
+  margin: 0 auto;
+  max-width: 500px;
 }
 
 
 
 
 @media (max-width: 500px) {
-  
+
   .header {
     height: 90px;
   }
-  
+
   .back-button,
   .user-elements {
     top: 51px;
